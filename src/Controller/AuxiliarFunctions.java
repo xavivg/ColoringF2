@@ -34,26 +34,33 @@ public class AuxiliarFunctions {
             if (used > Main.numColors) return false;
             i++;
         }
-
         return true;
     }
 
     public static int valor(Configuracion x){
         int[] aux = new int[MAX_COLORS];
         int used = 0;
-        for (int i = 0; i < Main.configuration.getNumRegions(); i++) {
-            aux[x.getRegions()[i]]++;
-            if (aux[x.getRegions()[i]] == 1) used++;
+        for (int i = 0; i <Main.configuration.getNumRegions(); i++) {
+            aux[x.getRegions()[i]-1]++;
+            if (aux[x.getRegions()[i]-1] == 1) used++;
         }
         return used;
     }
-
+    public static int valork(Configuracion x){
+        int[] aux = new int[MAX_COLORS];
+        int used = 0;
+        for (int i = 0; i <= x.getK(); i++) {
+            aux[x.getRegions()[i]-1]++;
+            if (aux[x.getRegions()[i]-1] == 1) used++;
+        }
+        return used;
+    }
     public static void paint(int[] x) {
         for (int r = 0; r < Main.configuration.getNumRegions(); r++) {
             for (int i = 0; i < Main.configuration.getBoardDimension(); i++) {
                 for (int j = 0; j < Main.configuration.getBoardDimension(); j++) {
                     if (Main.configuration.getRegions()[i][j] == r+1)
-                        Main.vista.setCellColor(i, j, x[r]);
+                        Main.vista.setCellColor(i, j, x[r]+1);
                 }
             }
         }
@@ -116,11 +123,11 @@ public class AuxiliarFunctions {
     public static Configuracion[] expande(Configuracion x){
         x.setK(x.getK()+1);
         Configuracion[] hijos = new Configuracion[MAX_COLORS];
-        int[] aux = new int[Main.configuration.getNumRegions()];
+        int[] aux;
         for (int i = 0; i < hijos.length; i++) {
             aux = new int[Main.configuration.getNumRegions()];
-            for (int j=0; j < aux.length; j++) {
-                aux[j] = x.getRegions()[j] +1;
+            for (int j=0; j < x.getK(); j++) {
+                aux[j] = x.getRegions()[j];
             }
             hijos[i] = new Configuracion();//inicializacion de configuracion
             hijos[i].setRegions(new int[Main.configuration.getNumRegions()]);//inicializacion de regiones

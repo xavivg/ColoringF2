@@ -21,6 +21,7 @@ public class BandBController {
             });
 
             Configuracion x = new Configuracion(), xMejor = new Configuracion();
+            xMejor.setRegions(new int[Main.configuration.getNumRegions()]);
             int vMejor = Integer.MAX_VALUE;
             x = configuracionRaiz(x);
 
@@ -35,12 +36,15 @@ public class BandBController {
                         if (buena(hijos[i])) {
                             if (valor(hijos[i]) < vMejor) {   //com mes petit millor
                                 vMejor = valor(hijos[i]);
-                                xMejor = hijos[i];
+                                xMejor.setK(hijos[i].getK());
+                                for (int j = 0; j < hijos[i].getRegions().length; j++) {
+                                    xMejor.getRegions()[j] = hijos[i].getRegions()[j];
+                                }
                             }
                         }
                     } else {
                         if (buena(hijos[i])) {
-                            if (valor(hijos[i]) < vMejor) {
+                            if (valork(hijos[i]) < vMejor) {
                                 //PODA
                                 nodosVivos.add(hijos[i]);
                             }

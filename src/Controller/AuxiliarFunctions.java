@@ -27,7 +27,7 @@ public class AuxiliarFunctions {
             i++;
         }
 
-        i=0;
+        i=0;//0
         while (i <= x.getK()) {
             aux[x.getRegions()[i]-1] ++;
             if (aux[x.getRegions()[i]-1] == 1) used ++;
@@ -117,15 +117,17 @@ public class AuxiliarFunctions {
         x.setK(x.getK()+1);
         Configuracion[] hijos = new Configuracion[MAX_COLORS];
         int[] aux = new int[Main.configuration.getNumRegions()];
-
-        for (int i=0; i < aux.length; i++) {
-            aux[i] = x.getRegions()[i];
-        }
-
         for (int i = 0; i < hijos.length; i++) {
-            aux[x.getK()] = i;
+            aux = new int[Main.configuration.getNumRegions()];
+            for (int j=0; j < aux.length; j++) {
+                aux[j] = x.getRegions()[j] +1;
+            }
+            hijos[i] = new Configuracion();//inicializacion de configuracion
+            hijos[i].setRegions(new int[Main.configuration.getNumRegions()]);//inicializacion de regiones
+            hijos[i].setK(x.getK());
+            aux[x.getK()] = i+1;
             hijos[i].setRegions(aux);
-        }
+            }
         return hijos;
     }
 }

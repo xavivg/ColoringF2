@@ -16,13 +16,16 @@ public class BandBController {
             PriorityQueue<Configuracion> nodosVivos = new PriorityQueue(new Comparator<Configuracion>() {
                 @Override
                 public int compare(Configuracion o1, Configuracion o2) {
-                    return o1.getNota() - o2.getNota();
+
+                    if(o1.getNota() > o2.getNota()) return -1;
+                    if(o1.getNota() < o2.getNota()) return 1;
+                    return 0;
                 }
             });
 
             Configuracion x = new Configuracion(), xMejor = new Configuracion();
             xMejor.setRegions(new int[Main.configuration.getNumRegions()]);
-            int vMejor = Integer.MAX_VALUE;
+            double vMejor = Integer.MAX_VALUE;
             x = configuracionRaiz(x);
 
             nodosVivos.add(x);
@@ -34,7 +37,7 @@ public class BandBController {
                 for (int i = 0; i < hijos.length; i++) {
                     if (solucion(hijos[i])) {
                         if (buena(hijos[i])) {
-                            if (valor(hijos[i]) < vMejor) {   //com mes petit millor
+                            if (valor(hijos[i]) < vMejor)   {   //com mes petit millor
                                 vMejor = valor(hijos[i]);
                                 xMejor.setK(hijos[i].getK());
                                 for (int j = 0; j < hijos[i].getRegions().length; j++) {
@@ -44,8 +47,9 @@ public class BandBController {
                         }
                     } else {
                         if (buena(hijos[i])) {
-                            if (valork(hijos[i]) < vMejor) {
+                            if (valor(hijos[i]) < vMejor) {
                                 //PODA
+                                hijos[i].setNota(valor(hijos[i]));
                                 nodosVivos.add(hijos[i]);
                             }
                         }

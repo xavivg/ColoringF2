@@ -2,10 +2,10 @@ package model;
 
 public class Configuracion {
     private int k; //not sure
-    private int nota;
+    private double nota;
     private int[] regions;
 
-    public Configuracion(int k, int nota, int[] regions) {
+    public Configuracion(int k, double nota, int[] regions) {
         this.k = k;
         this.nota = nota;
         this.regions = regions;
@@ -22,11 +22,11 @@ public class Configuracion {
         this.k = k;
     }
 
-    public int getNota() {
+    public double getNota() {
         return nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
 

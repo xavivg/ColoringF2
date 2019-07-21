@@ -37,14 +37,26 @@ public class AuxiliarFunctions {
         return true;
     }
 
-    public static int valor(Configuracion x){
+    public static double valor(Configuracion x){
+
+        // Calculamos el número de colores utilizados
         int[] aux = new int[MAX_COLORS];
         int used = 0;
-        for (int i = 0; i <Main.configuration.getNumRegions(); i++) {
+        for (int i = 0; i < x.getK()+1; i++) {
             aux[x.getRegions()[i]-1]++;
             if (aux[x.getRegions()[i]-1] == 1) used++;
         }
-        return used;
+        int score = 0;
+        for (int r = 0; r < x.getK()+1; r++) {
+            for (int i = 0; i < Main.configuration.getBoardDimension(); i++) {
+                for (int j = 0; j < Main.configuration.getBoardDimension(); j++) {
+                    if (Main.configuration.getRegions()[i][j] == r+1)
+                        score += x.getRegions()[r];
+                }
+            }
+        }
+
+        return score/10e9 + used;
     }
     public static int valork(Configuracion x){
         int[] aux = new int[MAX_COLORS];

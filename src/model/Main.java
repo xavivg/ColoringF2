@@ -13,7 +13,6 @@ public class Main {
     public static Conf configuration;
     public static BoardGUI vista;
     public static int numColors = 6;
-    public static int numSolutions = 0;
     public static void main(String[] args) {
         // Crear la GUI en función de la dimensión y las regiones
 
@@ -27,9 +26,9 @@ public class Main {
         }
 
 
-        BoardGUI vista = new BoardGUI(10, 6);
-        // Mostrar la vista
+        vista = new BoardGUI(configuration.getBoardDimension(), configuration.getNumRegions());
         vista.setVisible(true);
+        // Mostrar la vista
 
        Configuracion a = BandBController.branchAndBound();
 
